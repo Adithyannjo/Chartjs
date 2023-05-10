@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
   ctx: any = document.getElementById("lineChart") as HTMLElement;
   ctx1: any = document.getElementById("barChart") as HTMLElement;
   ctx3: any = document.getElementById("pieChart") as HTMLElement;
-
+  ctx4: any = document.getElementById("doughchart") as HTMLElement;
+  
   exampleProfitApiData: any = exampleProfitApiData;
   Btc:any = Btc
   chart: any;
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.createBarChart()
     this.pieCharts()
+    this.dougCharts()
   }
 
 
@@ -167,7 +169,7 @@ export class AppComponent implements OnInit {
             'rgb(54, 162, 235)',
             'rgb(255, 205, 86)'
           ],
-          hoverOffset: 45
+          hoverOffset: 5
         },
         // {
         //   label: "TeamB Score",
@@ -204,6 +206,66 @@ export class AppComponent implements OnInit {
     //create 
     var chart = new Chart(ctx3, {
       type: "pie",
+      data: data,
+      options: options
+    })
+  }
+
+
+  //Doughnut and pie chart
+  dougCharts() {
+    const labels = ['long', 'short','Profit', 'loss']
+    let ctx4: any = document.getElementById("doughchart") as HTMLElement;
+    var data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "USD ",
+          data: [10, 50, 25,11],
+          backgroundColor: [
+            'rgb(121, 99, 132)',
+            'rgb(54, 200, 235)',
+            'rgb(255, 780, 86)',
+            'rgb(200, 545, 846)'
+
+          ],
+          hoverOffset: 4
+        },
+        // {
+        //   label: "TeamB Score",
+        //   data: [20, 35, 40, 60, 50],
+        //   backgroundColor: "green",
+        //   borderColor: "lightgreen",
+        //   fill: false,
+        //   lineTension: 0,
+        //   radius: 5
+        // }
+      ]
+    };
+
+    //options
+    var options = {
+      responsive: true,
+      title: {
+        display: true,
+        position: "top",
+        text: "Line Graph",
+        fontSize: 18,
+        fontColor: "#111"
+      },
+      legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+          fontColor: "#333",
+          fontSize: 16
+        }
+      }
+    };
+
+    //create 
+    var chart = new Chart(ctx4, {
+      type: "doughnut",
       data: data,
       options: options
     })
